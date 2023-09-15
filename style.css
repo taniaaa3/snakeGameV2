@@ -25,26 +25,6 @@ background: radial-gradient(circle, rgba(0,131,69,1) 0%, rgba(9,121,14,1) 42%, r
     transform: scale(1.7);
 
 }
-.child{
-    background: rgba(136, 197, 146, 0.4);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.2);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(165, 253, 187, 0.3);
-  grid-template-columns: repeat(12,1fr);
-  grid-template-rows: repeat(5,1fr);
-}
-@media screen and (min-width: 640px) {
-    .child{
-        grid-template-columns: repeat(20,1fr);
-    }
-}
-@media screen and (min-width: 1024px) {
-    .child{
-        grid-template-columns: repeat(32,1fr);
-    }
-}
 .childHead{
     background-color: red;
     background: url('./snake.png');

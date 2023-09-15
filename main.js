@@ -7,14 +7,13 @@ const move = new Audio('./sounds/move.mp3');
 const music = new Audio('./sounds/music.mp3');
 let lastPaintTime = 0;
 let speed = 5;
-let snake = [{ x: 13, y: 15 }];
+let snake = [{ x: 13, y: 13 }];
 const board = document.querySelector('.board');
 let food = { x: 6, y: 7 };
 let score = 0;
 let scoreBox = document.querySelector('.scoreBox');
 let highScoreBox = document.querySelector('.highScore')
 let highScoreVal;
-const child = document.querySelector('.child');
 let snakeChild = [{x: 2, y: 3}];
 
 
@@ -29,7 +28,7 @@ const main = (curTime) => {
     gameEngine();
 }
 
-const collapse = (snakeArr)=>{
+const collapse = (snakeArr,snakeChildArr)=>{
         //When snake bumps into itself
         for (let i = 1; i < snakeArr.length; i++) {
             if(snakeArr[i].x === snakeArr[0].x && snakeArr[i].y === snakeArr[0].y){
@@ -40,13 +39,22 @@ const collapse = (snakeArr)=>{
             if(snakeArr[0].x >= 18 || snakeArr[0].x <= 0 || snakeArr[0].y >= 18 || snakeArr[0].y <= 0){
                     return true;
             }
+
+        //When snake bumps into the snakeChild 
+        for (let j = 1; j < snakeArr.length; j++) {
+
+            if(snakeArr[0].x === snakeChildArr[j].x && snakeArr[0].y === snakeChildArr[j].y || snakeArr[0].x === snakeChildArr[0].x && snakeArr[0].y === snakeChildArr[0].y){
+                return true;
+            }    
+        }
+    
             
 }
 
 const gameEngine = () => {
 
     //Updating the Snake
-    if(collapse(snake)){
+    if(collapse(snake, snakeChild)){
         gameOver.play();
         music.pause();
         dir = {x: 0, y: 0};
@@ -81,7 +89,7 @@ const gameEngine = () => {
         snakeChild.unshift({x: snakeChild[0].x + 1 , y: snakeChild[0].y });
 
         //Generating food
-        let a = 2;
+        let a = 4;
         let b = 16;
         food = {x: Math.round(a + (b-a)* Math.random()), y: Math.round(a + (b-a)* Math.random())}
     }
@@ -117,7 +125,6 @@ const gameEngine = () => {
     board.appendChild(FoodElement);
 
         //Displaying Child Snake
-        child.innerHTML = ''
         snakeChild.forEach((val, index) => {
             let element = document.createElement('div');
             element.style.gridRowStart = val.y;
@@ -128,7 +135,7 @@ const gameEngine = () => {
             else{
                 element.classList.add('snake2');
             }
-            child.appendChild(element);
+            board.appendChild(element);
         })
 
 
